@@ -5,7 +5,7 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build:prod",
+        "buildCommand": "npm run build:vercel",
         "outputDirectory": "dist"
       }
     },
@@ -20,32 +20,12 @@
       "dest": "/api/proxy.js"
     },
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
+      "src": "/(js|css|img|fonts)/.*",
+      "headers": { "cache-control": "max-age=31536000, immutable" },
+      "continue": true
     },
     {
-      "src": "/(.*).js",
-      "dest": "/$1.js"
-    },
-    {
-      "src": "/(.*).css",
-      "dest": "/$1.css"
-    },
-    {
-      "src": "/(.*).png",
-      "dest": "/$1.png"
-    },
-    {
-      "src": "/(.*).jpg",
-      "dest": "/$1.jpg"
-    },
-    {
-      "src": "/(.*).svg",
-      "dest": "/$1.svg"
-    },
-    {
-      "src": "/(.*).ico",
-      "dest": "/$1.ico"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
